@@ -20,7 +20,7 @@ if __name__ == "__main__":
             
             #Update the POS table for the word
             val = frequencyChart[w]
-            if(tweet[1] == 0):
+            if(tweet[1] == -1):
                 val[0] += 1
             else:
                 val[1] += 1
@@ -51,7 +51,7 @@ if __name__ == "__main__":
                 else:
                     guess += 1
         
-        if(guess > 0 and tweet[1] == 1) or (guess <= 0 and tweet[1] == 0):
+        if(guess > 0 and tweet[1] == 1) or (guess <= 0 and tweet[1] == -1):
             correct += 1
     
     #print out accuracy of baseline model

@@ -1,5 +1,6 @@
 import json
 import random
+import re
 
 def ProcessData(filename1, filename2):
     
@@ -18,9 +19,9 @@ def ProcessData(filename1, filename2):
             words = tweet.split()
             s = ""
             for w in words:
-                if ("https" not in w) and ("@" not in w) and ("RT" not in w): 
-                    s = s + w + ' '
-            data.append([s, 0])
+                if ("https" not in w) and ("@" not in w) and (w ): 
+                    s += w + ' '
+            data.append([preprocess_string(s), -1])
     unverified_data = data
         
     data = []
@@ -31,7 +32,7 @@ def ProcessData(filename1, filename2):
             for w in words:
                 if ("https" not in w) and ("@" not in w) and ("RT" not in w): 
                     s = s + w + ' '
-            data.append([s, 1])
+            data.append([preprocess_string(s), 1])
     verified_data = data
     
     #shuffle the data
@@ -58,3 +59,6 @@ def ProcessData(filename1, filename2):
     
     #only return some of the data (this helps change our data every time we run the model)
     return [train[:len(train) // 5], test[:len(test) // 5]]
+	
+def preprocess_string(str):
+	return re.sub(r'[^\w\s]', '', str.lower())

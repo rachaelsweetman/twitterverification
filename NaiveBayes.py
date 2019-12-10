@@ -34,7 +34,7 @@ class NaiveBayes:
         # our verified/unverified dictionaries. We also count the number of verified tweets
         # and the number of unverified tweets.
         for tweet in data:
-            if(tweet[1] == 0):
+            if(tweet[1] == -1):
                 self.U += 1
                 for word in tweet[0].split():
                     if(word not in self.unverified.keys()):
@@ -85,7 +85,7 @@ class NaiveBayes:
                 if(word in self.verified.keys()):
                     verifiedChance += math.log(self.verified[word])
                     unverifiedChance += math.log(self.unverified[word])
-            if(verifiedChance > unverifiedChance and tweet[1] == 1) or (verifiedChance <= unverifiedChance and tweet[1] == 0):
+            if(verifiedChance > unverifiedChance and tweet[1] == 1) or (verifiedChance <= unverifiedChance and tweet[1] == -1):
                 correct += 1
         
         return correct / len(data)
